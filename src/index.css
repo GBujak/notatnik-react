@@ -1,21 +1,21 @@
 body {
-  margin: 0;
-  font-family: 'Cantarell', 'Ubuntu', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    margin: 0;
+    font-family: 'Zilla Slab', 'Cantarell', 'Ubuntu', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    font-family: 'Cantarell';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     font-size: 16px;
+}
+
+:root {
+    --highlight-color: #A8D5FF;
 }

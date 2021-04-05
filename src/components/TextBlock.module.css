@@ -1,9 +1,9 @@
 .textArea {
+    font-family: 'Inconsolata', 'Ubuntu Mono', monospace;
     display: block;
-    margin: 1rem;
+    margin-bottom: 1rem;
     font-size: 1.2rem;
     width: 100%;
-    max-width: 800px;
     padding: 1em;
     background-color: lightgrey;
     border: none;
@@ -11,8 +11,16 @@
     overflow: hidden;
 }
 
+.textArea:nth-child(1) {
+    margin-top: 0;
+}
+
 .textArea:focus {
     outline: 0;
+}
+
+.textArea.indented {
+    padding-left: 3em;
 }
 
 .header1 { font-size: 2.5rem; }
