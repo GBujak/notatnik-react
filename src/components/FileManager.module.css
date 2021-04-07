@@ -70,10 +70,6 @@
     grid-column: 6/7;
 }
 
-.new-dir {
-    grid-column: 1/4;
-}
-
-.new-file {
-    grid-column: 4/7;
+.button-new {
+    grid-column: 1/7;
 }

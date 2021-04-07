@@ -8,13 +8,6 @@ interface Props {
     onFileChange: (newFile: File) => void,
 }
 
-const placeholderFocusBlock = (index: number) => {
-    setTimeout(() => {
-        (document.querySelectorAll("#block-editor > *")[index] as HTMLTextAreaElement).focus();
-        (document.querySelectorAll("#block-editor > *")[index] as HTMLTextAreaElement).setSelectionRange(0, 0);
-    });
-};
-
 export const BlockEditor: React.FC<Props> = ({ openFile, onFileChange }) => {
 
     const blockRefs = useRef<Array<HTMLTextAreaElement | null>>([]);

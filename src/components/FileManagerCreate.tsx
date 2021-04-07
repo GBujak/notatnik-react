@@ -1,49 +1,35 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
-import { Directory, File } from '../dataTypes/document';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import classes from './FileManager.module.css';
 import classnames from 'classnames';
 
 interface Props {
-    onFileCreate: (file: File) => void,
-    onDirCreate: (dir: Directory) => void,
+    onCreate: (name: string) => void,
 }
 
-export const FileManagerCreate: React.FC<Props> = ({ onFileCreate, onDirCreate }) => {
-    const [creating, setCreating] = useState<null | "file" | "dir">(null);
+export const FileManagerCreate: React.FC<Props> = ({ onCreate }) => {
+    const [open, setOpen] = useState(false);
     const [name, setName] = useState("");
     let inputRef = useRef<HTMLInputElement>(null);
 
     const onTick = () => {
-        if (creating == "file") {
-            onFileCreate({ name: name, blocks: [] });
-        } else if (creating == "dir") {
-            onDirCreate({ name: name, subDirectories: [], files: [] });
-        }
+        onCreate(name);
     };
 
     useEffect(() => {
         inputRef.current?.focus();
-    }, [creating]);
+    }, [open]);
 
     return <div className={classnames([classes['creator-grid']])}>
         <button
             className={classnames([
-                classes['button'], classes['new-dir'],
-                { [classes['button-active']]: creating === "dir" }
+                classes['button'], classes['button-new'],
             ])}
-            onClick={() => setCreating("dir")}
-        >Nowy katalog</button>
-        <button
-            className={classnames([
-                classes['button'], classes['new-file'],
-                { [classes['button-active']]: creating === "file" }
-            ])}
-            onClick={() => setCreating("file")}
-        >Nowy folder</button>
+            onClick={() => setOpen(true)}
+        >Stwórz nowy</button>
 
-        {creating != null && <>
+        {open && <>
             <input
                 ref={inputRef}
                 className={classnames([classes['text-input']])}
@@ -57,7 +43,7 @@ export const FileManagerCreate: React.FC<Props> = ({ onFileCreate, onDirCreate }
             </button>
             <button
                 className={classnames([classes['button'], classes['button-cancel']])}
-                onClick={() => { setName(""); setCreating(null); }}>
+                onClick={() => { setName(""); setOpen(false); }}>
                 <FontAwesomeIcon icon={faTimes} />
             </button>
         </>}

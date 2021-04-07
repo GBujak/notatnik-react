@@ -1,27 +1,25 @@
 import React from 'react';
-import { Directory } from '../dataTypes/document';
 import { FileManagerList } from './FileManagerList';
 import classes from './FileManager.module.css';
 import { FileManagerCreate } from './FileManagerCreate';
 
 interface Props {
-    openDir: Directory,
+    items: Array<{ isDirectory: boolean, name: string; }>;
+    onCreate: (name: string) => void,
+    onNavigate: (name: string) => void,
 }
 
-export const FileManager: React.FC<Props> = ({ openDir }) => {
+export const FileManager: React.FC<Props> = ({ items, onCreate, onNavigate }) => {
 
     return <div className={`${classes['file-manager-grid-cell']}`} >
         <div className={`${classes['file-manager']}`}>
             <p className={classes['title']}>Menedżer plików</p>
             <FileManagerList
-                dirs={openDir.subDirectories}
-                files={openDir.files}
-                onDirOpen={() => { }}
-                onFileOpen={() => { }}
+                dirContent={items}
+                onNavigate={onNavigate}
             />
             <FileManagerCreate
-                onFileCreate={() => { }}
-                onDirCreate={() => { }}
+                onCreate={onCreate}
             />
         </div>
     </div>;

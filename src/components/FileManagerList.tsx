@@ -1,5 +1,4 @@
 import React from 'react';
-import { Directory, File } from '../dataTypes/document';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder, faFile } from '@fortawesome/free-solid-svg-icons';
 import classes from './FileManager.module.css';
@@ -7,43 +6,25 @@ import buttonClasses from './Button.module.css';
 import classnames from 'classnames';
 
 interface Props {
-    dirs: Array<Directory>,
-    files: Array<File>,
-    onDirOpen: (dir: Directory) => void,
-    onFileOpen: (file: File) => void,
+    dirContent: Array<{ isDirectory: boolean, name: string; }>,
+    onNavigate: (name: string) => void,
 }
 
-export const FileManagerList: React.FC<Props> = ({ dirs, files, onDirOpen, onFileOpen }) => {
+export const FileManagerList: React.FC<Props> = ({ dirContent, onNavigate }) => {
 
-    return <>
-        <div className={`${classes['item-list']}`}>
-            {dirs.map((x) => (
-                <button
-                    className={classnames([buttonClasses['button'], buttonClasses['full-width']])}
-                    style={{ marginBottom: '1rem' }}
-                    onClick={() => onDirOpen(x)}
-                >
-                    <FontAwesomeIcon
-                        icon={faFolder}
-                        style={{ width: '3rem' }}
-                    />
-                    {x.name}
-                </button>
-            ))}
-
-            {files.map((x) => (
-                <button
-                    style={{ marginBottom: '1rem' }}
-                    className={classnames([buttonClasses['button'], buttonClasses['full-width']])}
-                    onClick={() => onFileOpen(x)}
-                >
-                    <FontAwesomeIcon
-                        icon={faFile}
-                        style={{ width: '3rem' }}
-                    />
-                    {x.name}
-                </button>
-            ))}
-        </div>
-    </>;
+    return <div className={`${classes['item-list']}`}>
+        {dirContent.map((item) => (
+            <button
+                style={{ marginBottom: '1rem' }}
+                className={classnames([buttonClasses['button'], buttonClasses['full-width']])}
+                onClick={() => onNavigate(item.name)}
+            >
+                <FontAwesomeIcon
+                    icon={(item.isDirectory) ? faFolder : faFile}
+                    style={{ width: '3rem' }}
+                />
+                {item.name}
+            </button>
+        ))}
+    </div>;
 };

@@ -1,29 +1,37 @@
-import { Directory, File } from "../dataTypes/document";
+import { File } from "../dataTypes/document";
 
-export function navigatePath(dir: Directory, path: Array<string>): Directory | null {
-    let currentDir = dir;
-    for (let pathElement of path) {
-        for (let subdir of currentDir.subDirectories) {
-            if (subdir.name === pathElement) {
-                currentDir = subdir;
-                break;
-            }
+export interface Filesystem {
+    currentPath: Array<string>,
+    openFile: string,
+    files: {
+        [path: string]: File,
+    },
+}
+
+export function getPathContent(filesystem: Filesystem): Array<{ isDirectory: boolean, name: string, }> {
+    let paths = Object.keys(filesystem.files);
+    let currentPathStr = filesystem.currentPath.join("/") + "/";
+    if (currentPathStr == "/") currentPathStr = "";
+    let result = paths
+        .filter(p => p.startsWith(currentPathStr))
+        .map(p => p.substring(currentPathStr.length, p.length))
+        .map(p => ({ isDirectory: isDirectory(p), name: p }))
+        .map(p => ({ ...p, name: p.name.split("/")[0] }));
+    return uniqueItems(result);
+}
+
+function isDirectory(name: string) {
+    return name.indexOf("/") != -1;
+}
+
+function uniqueItems(items: Array<{ isDirectory: boolean, name: string; }>) {
+    let result = [];
+    let names = new Set();
+    for (let item of items) {
+        if (!names.has(item.name)) {
+            names.add(item.name);
+            result.push(item);
         }
-        return null;
     }
-    return currentDir;
-}
-
-export function mergeFile(root: Directory, file: File, path: Array<string>): Directory | null {
-    let dir = navigatePath(root, path);
-    dir?.files.push(file);
-    dir?.files.sort((a, b) => a.name.localeCompare(b.name));
-    return dir;
-}
-
-export function mergeDir(root: Directory, newDir: Directory, path: Array<string>): Directory | null {
-    let dir = navigatePath(root, path);
-    dir?.subDirectories.push(newDir);
-    dir?.subDirectories.sort((a, b) => a.name.localeCompare(b.name));
-    return dir;
+    return result;
 }
