@@ -14,9 +14,9 @@ interface FilesState {
 
 function App() {
     const [files, setFiles] = useState<FilesState>({
-        "test": {
-            "name": "test",
-            "blocks": [
+        test: {
+            name: "test",
+            blocks: [
                 '# Tytuł',
                 '## Podtytuł',
                 '### Podpodtytuł',
@@ -36,7 +36,8 @@ function App() {
         <div className={classes['container']}>
             <BreadCrumb currentPath={['/', 'jeden', 'dwa', 'trzy', 'cztery', 'pięć']}></BreadCrumb>
             <FileManager openDir={{
-                name: "test", files: [
+                name: "test",
+                files: [
                     { name: "Plik 1", blocks: [] },
                     { name: "Plik 2", blocks: [] },
                     { name: "Plik 3", blocks: [] },
