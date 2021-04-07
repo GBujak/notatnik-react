@@ -9,9 +9,10 @@ export interface Filesystem {
 }
 
 export function getPathContent(filesystem: Filesystem): Array<{ isDirectory: boolean, name: string, }> {
+    console.log("ran getPathContent");
     let paths = Object.keys(filesystem.files);
     let currentPathStr = filesystem.currentPath.join("/") + "/";
-    if (currentPathStr == "/") currentPathStr = "";
+    if (currentPathStr === "/") currentPathStr = "";
     let result = paths
         .filter(p => p.startsWith(currentPathStr))
         .map(p => p.substring(currentPathStr.length, p.length))
@@ -21,7 +22,7 @@ export function getPathContent(filesystem: Filesystem): Array<{ isDirectory: boo
 }
 
 function isDirectory(name: string) {
-    return name.indexOf("/") != -1;
+    return name.indexOf("/") !== -1;
 }
 
 function uniqueItems(items: Array<{ isDirectory: boolean, name: string; }>) {

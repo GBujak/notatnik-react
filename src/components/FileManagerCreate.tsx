@@ -15,6 +15,8 @@ export const FileManagerCreate: React.FC<Props> = ({ onCreate }) => {
 
     const onTick = () => {
         onCreate(name);
+        setName("");
+        setOpen(false);
     };
 
     useEffect(() => {

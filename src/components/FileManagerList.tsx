@@ -13,8 +13,9 @@ interface Props {
 export const FileManagerList: React.FC<Props> = ({ dirContent, onNavigate }) => {
 
     return <div className={`${classes['item-list']}`}>
-        {dirContent.map((item) => (
+        {dirContent.map((item, index) => (
             <button
+                key={index}
                 style={{ marginBottom: '1rem' }}
                 className={classnames([buttonClasses['button'], buttonClasses['full-width']])}
                 onClick={() => onNavigate(item.name)}
