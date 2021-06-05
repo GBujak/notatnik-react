@@ -67,6 +67,7 @@ export const BlockEditor: React.FC<Props> = ({ openFile, onFileChange }) => {
     };
 
     return <div id="block-editor">
+        <p style={{ padding: "1rem", marginBottom: "1rem", backgroundColor: "#A8D5FF" }}>Edytuje: {openFile.name}</p>
         {openFile.blocks.map((content, index) => <TextBlock
             key={index}
             blockIndex={index}

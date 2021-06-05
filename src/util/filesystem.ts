@@ -2,13 +2,13 @@ import { File } from "../dataTypes/document";
 
 export interface Filesystem {
     currentPath: Array<string>,
-    openFile: string,
+    openFile: string | null,
     files: {
         [path: string]: File,
     },
 }
 
-export function getPathContent(filesystem: Filesystem): Array<{ isDirectory: boolean, name: string, }> {
+export function getPathContent(filesystem: Filesystem): Array<{ isDirectory: boolean, name: string, fullName: string, }> {
     console.log("ran getPathContent");
     let paths = Object.keys(filesystem.files);
     let currentPathStr = filesystem.currentPath.join("/") + "/";
@@ -17,7 +17,7 @@ export function getPathContent(filesystem: Filesystem): Array<{ isDirectory: boo
         .filter(p => p.startsWith(currentPathStr))
         .map(p => p.substring(currentPathStr.length, p.length))
         .map(p => ({ isDirectory: isDirectory(p), name: p }))
-        .map(p => ({ ...p, name: p.name.split("/")[0] }));
+        .map(p => ({ ...p, name: p.name.split("/")[0], fullName: currentPathStr + p.name }));
     return uniqueItems(result);
 }
 
@@ -25,7 +25,7 @@ function isDirectory(name: string) {
     return name.indexOf("/") !== -1;
 }
 
-function uniqueItems(items: Array<{ isDirectory: boolean, name: string; }>) {
+function uniqueItems(items: Array<{ isDirectory: boolean, name: string, fullName: string; }>) {
     let result = [];
     let names = new Set();
     for (let item of items) {
