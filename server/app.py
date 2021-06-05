@@ -42,7 +42,7 @@ def new_notepad():
     return {"uuid": id}
 
 
-@app.route("/api/save-notepad")
+@app.route("/api/save-notepad", methods=['POST'])
 def save_notepad():
     uuid = request.json['uuid']
     encrypted = request.json['encrypted']

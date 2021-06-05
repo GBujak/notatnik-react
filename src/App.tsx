@@ -13,7 +13,7 @@ function App() {
     const [login, setLogin] = useState<EditorLogin | null>(null);
 
     return (login !== null)
-        ? <EditorComponent />
+        ? <EditorComponent login={login} />
         : <LoginComponent onSetLogin={setLogin} />;
 }
 
