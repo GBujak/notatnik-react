@@ -5,7 +5,7 @@ Aplikacja react.js plus backend (katalog server).
 Funkcje edytora:
 
 * menedżer plików - tworzenie i usuwanie plików i katalogów
-* edytor bloków - pliki do dokumenty składające się z bloków. Enter tworzy nowy blok,
+* edytor bloków - pliki to dokumenty składające się z bloków. Enter tworzy nowy blok,
   backspace kasuje blok itd..
 * podstawowe wsparcie markdown - tytuły, podtytuły, listy.
 
